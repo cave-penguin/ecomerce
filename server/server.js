@@ -4,6 +4,7 @@ import cors from 'cors'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
+import axios from 'axios'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
@@ -33,6 +34,26 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+const url =
+  'https://raw.githubusercontent.com/ovasylenko/skillcrcuial-ecommerce-test-data/master/data.json'
+
+const exchangerates = 'https://api.exchangerate.host/latest?base=USD&symbols=USD,EUR,CAD'
+
+// request from DB
+
+server.get('/api/v1/main', async (req, res) => {
+  const { data } = await axios.get(url).catch((err) => console.log(err))
+  res.json(data)
+})
+
+// request from api.exchangerate.host
+
+server.get('/api/v1/exchange', async (req, res) => {
+  const { data } = await axios.get(exchangerates)
+  // console.log(data)
+  res.json(data)
+})
 
 server.use('/api/', (req, res) => {
   res.status(404)

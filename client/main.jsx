@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import Root from './config/root'
 
 import './assets/scss/main.scss'

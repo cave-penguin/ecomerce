@@ -8,7 +8,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return {
-        productArr: [...state.productArr, action.payload]
+        ...state,
+        productArr: action.payload
       }
 
     default:

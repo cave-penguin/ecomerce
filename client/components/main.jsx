@@ -1,27 +1,26 @@
-import { useSelector } from 'react-redux'
-import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
 import Head from './head'
 import Header from './header'
+import { getProduct } from '../redux/reducers/products'
+import Card from './card'
 
 const Main = () => {
   const { productArr } = useSelector((s) => s.products)
-  // eslint-disable-next-line no-console
-  console.log(productArr)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProduct())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <>
       <Head />
       <Header />
-
-      {productArr.map((item) => {
-        return (
-          <div className="flex flex-row justify-center" key={item.id}>
-            <div className="">{item.title}</div>
-            <div className="">{item.image}</div>
-            <div className="">{item.description}</div>
-            <div className="">{item.price}</div>
-          </div>
-        )
-      })}
+      <div className="flex flex-wrap justify-between m-1">
+        {productArr.map((prod) => {
+          return <Card key={prod.id} prod={prod} />
+        })}
+      </div>
     </>
   )
 }

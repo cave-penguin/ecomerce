@@ -57,8 +57,8 @@ server.get('/api/v1/exchange', async (req, res) => {
     .catch(() => {
       return {
         rates: {
-          CAD: 1.278844,
-          EUR: 0.883617,
+          CAD: 1.3,
+          EUR: 0.9,
           USD: 1
         }
       }

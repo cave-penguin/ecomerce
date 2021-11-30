@@ -4,12 +4,14 @@ import Head from './head'
 import Header from './header'
 import { getProduct } from '../redux/reducers/products'
 import Card from './card'
+import { getRates } from '../redux/reducers/exchange'
 
 const Main = () => {
   const { productArr } = useSelector((s) => s.products)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProduct())
+    dispatch(getRates())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (

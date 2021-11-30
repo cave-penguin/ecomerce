@@ -1,7 +1,10 @@
 const GET_RATES = '@exchange/GET_RATES'
 
+const CHANGE_CURRENCY = '@exchange/CHANGE_CURRENCY'
+
 const initialState = {
-  rates: { CAD: 1.278844, EUR: 0.883617, USD: 1 }
+  rates: { USD: 1 },
+  currencyName: 'USD'
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +14,12 @@ export default (state = initialState, action) => {
         ...state,
         rates: action.payload
       }
-
+    case CHANGE_CURRENCY: {
+      return {
+        ...state,
+        currencyName: action.payload
+      }
+    }
     default:
       return state
   }
@@ -29,5 +37,12 @@ export function getRates() {
       )
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err))
+  }
+}
+
+export const changeCurrency = (value) => {
+  return {
+    type: CHANGE_CURRENCY,
+    payload: value
   }
 }

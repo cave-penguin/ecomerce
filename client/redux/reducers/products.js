@@ -1,7 +1,7 @@
 const GET_PRODUCTS = '@products/GET_PRODUCTS'
 
 const initialState = {
-  productArr: []
+  productObj: {}
 }
 
 export default (state = initialState, action) => {
@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        productArr: action.payload
+        productObj: action.payload
       }
 
     default:
@@ -21,6 +21,12 @@ export function getProduct() {
   return (dispatch) => {
     fetch('/api/v1/main')
       .then((it) => it.json())
+      .then((arr) =>
+        arr.reduce((acc, rec) => {
+          acc[rec.id] = rec
+          return acc
+        }, {})
+      )
       .then((result) => {
         dispatch({
           type: GET_PRODUCTS,
